@@ -11,7 +11,7 @@ func GetShortId() (string,error){
 
 func GetReqID(c *gin.Context) string {
 	v,ok := c.Get("X-Request-Id")
-	if !ok{
+	if !ok {
 		return ""
 	}
 	if requestId,ok := v.(string); ok{

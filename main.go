@@ -11,6 +11,7 @@ import (
 	"time"
 	"errors"
 	"apiserver/model"
+	"apiserver/router/middleware"
 )
 
 var (
@@ -29,11 +30,11 @@ func main() {
 
 	g := gin.New()
 
-	middleware := []gin.HandlerFunc{}
+
 
 	router.Load(
 		g,
-		middleware...,
+		middleware.RequestId,
 	)
 	go func() {
 		if err := pingServer();err != nil{

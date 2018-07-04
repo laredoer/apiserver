@@ -8,6 +8,7 @@ import (
 	. "apiserver/handler"
 	"github.com/lexkong/log/lager"
 	"apiserver/util"
+	"apiserver/model"
 )
 
 // Create creates a new user account.
@@ -16,6 +17,16 @@ func Create(c *gin.Context) {
 	var r CreateRequest
 	if err := c.Bind(&r); err != nil {
 		SendResponse(c, errno.ErrBind, nil)
+		return
+	}
+
+	u := model.UserModel{
+		Username:r.Username,
+		Password:r.Password,
+	}
+
+	if err := u.Validate(); err != nil {
+		SendResponse(c,errno.ErrValidation,nil)
 		return
 	}
 
