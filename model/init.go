@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/lexkong/log"
 	"github.com/spf13/viper"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type Database struct {

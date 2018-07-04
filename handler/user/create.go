@@ -42,3 +42,15 @@ func Create(c *gin.Context) {
 	// Show the user information.
 	SendResponse(c, nil, rsp)
 }
+
+
+func (r *CreateRequest) checkParam() error{
+	if r.Username == "" {
+		return errno.New(errno.ErrValidation,nil).Add("username is empty")
+	}
+	if r.Password == "" {
+		return errno.New(errno.ErrValidation,nil).Add("password is empty")
+	}
+
+	return nil
+}

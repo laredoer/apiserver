@@ -5,6 +5,7 @@ import (
 	"apiserver/router/middleware"
 	"net/http"
 	"apiserver/handler/sd"
+	"apiserver/handler/user"
 )
 
 func Load(g *gin.Engine,mw ...gin.HandlerFunc) *gin.Engine {
@@ -20,9 +21,11 @@ func Load(g *gin.Engine,mw ...gin.HandlerFunc) *gin.Engine {
 
 	u := g.Group("/v1/user")
 	{
-		u.POST("/:username", func(context *gin.Context) {
-
-		})
+		u.POST("", user.Create)
+		u.DELETE("/:id",user.Delete)
+		u.PUT("/:id",user.Update)
+		u.GET("",user.List)
+		u.GET("/:username",user.Get)
 	}
 
 	svcd := g.Group("/sd")

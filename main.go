@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"time"
 	"errors"
+	"apiserver/model"
 )
 
 var (
@@ -23,8 +24,8 @@ func main() {
 		panic(err)
 	}
 	//init db
-	//model.DB.Init()
-	//defer model.DB.Close()
+	model.DB.Init()
+	defer model.DB.Close()
 
 	g := gin.New()
 
