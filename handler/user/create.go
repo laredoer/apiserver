@@ -6,10 +6,13 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	. "apiserver/handler"
+	"github.com/lexkong/log/lager"
+	"apiserver/util"
 )
 
 // Create creates a new user account.
 func Create(c *gin.Context) {
+	log.Info("user create function called.",lager.Data{"X-Request-Id":util.GetReqID(c)})
 	var r CreateRequest
 	if err := c.Bind(&r); err != nil {
 		SendResponse(c, errno.ErrBind, nil)
