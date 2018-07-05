@@ -3,7 +3,6 @@ package user
 import (
 	"github.com/lexkong/log"
 	"apiserver/pkg/errno"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	. "apiserver/handler"
 	"github.com/lexkong/log/lager"
@@ -30,31 +29,21 @@ func Create(c *gin.Context) {
 		return
 	}
 
-	admin2 := c.Param("username")
-	log.Infof("URL username: %s", admin2)
-
-	desc := c.Query("desc")
-	log.Infof("URL key param desc: %s", desc)
-
-	contentType := c.GetHeader("Content-Type")
-	log.Infof("Header Content-Type: %s", contentType)
-
-	log.Debugf("username is: [%s], password is [%s]", r.Username, r.Password)
-	if r.Username == "" {
-		SendResponse(c, errno.New(errno.ErrUserNotFound, fmt.Errorf("username can not found in db: xx.xx.xx.xx")), nil)
-		return
+	if err := u.Encrypt(); err != nil {
+		SendResponse(c,errno.ErrEncrypt,nil)
 	}
 
-	if r.Password == "" {
-		SendResponse(c, fmt.Errorf("password is empty"), nil)
+	if err := u.Create();err != nil {
+		SendResponse(c,errno.ErrDatabase,nil)
 	}
 
 	rsp := CreateResponse{
-		Username: r.Username,
+		Username:r.Username,
 	}
 
-	// Show the user information.
-	SendResponse(c, nil, rsp)
+	SendResponse(c,nil,rsp)
+
+
 }
 
 
