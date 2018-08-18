@@ -9,7 +9,7 @@ tls:
   cert: conf/server.crt
   key: conf/server.key
 log:
-  writers: stdout,file
+  writers: stdout
   logger_level: DEBUG
   logger_file: log/apiserver.log
   log_format_text: true
@@ -18,12 +18,12 @@ log:
   log_rotate_size: 1
   log_backup_count: 7
 db:
-  name: apiserver
+  name: db_apiserver
   addr: 127.0.0.1:3306
   username: root
   password: root
 docker_db:
-  name: apiserver
+  name: db_apiserver
   addr: 127.0.0.1:3306
   username: root
   password: root

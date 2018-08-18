@@ -3,18 +3,19 @@ package errno
 import "fmt"
 
 type Errno struct {
-	Code int
+	Code    int
 	Message string
 }
 
-func (err Errno) Error() string{
+func (err Errno) Error() string {
 	return err.Message
 }
 
+// Err represents an error
 type Err struct {
-	Code int
+	Code    int
 	Message string
-	Err error
+	Err     error
 }
 
 func New(errno *Errno, err error) *Err {
@@ -22,13 +23,11 @@ func New(errno *Errno, err error) *Err {
 }
 
 func (err *Err) Add(message string) error {
-	//err.Message = fmt.Sprintf("%s %s", err.Message, message)
 	err.Message += " " + message
 	return err
 }
 
 func (err *Err) Addf(format string, args ...interface{}) error {
-	//return err.Message = fmt.Sprintf("%s %s", err.Message, fmt.Sprintf(format, args...))
 	err.Message += " " + fmt.Sprintf(format, args...)
 	return err
 }
